@@ -1,35 +1,35 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
+import Image from 'next/image';
 
-const ProductosList = ({ selectedGama, setSelectedProducto }) => {
-  const [productos, setProductos] = useState([]);
+interface Product {
+  code: number;
+  name: string;
+  stock: number;
+  price: number;
+  provider: string;
+  image: string;
+}
 
-  useEffect(() => {
-    if (selectedGama) {
-      fetch(`http://localhost:3000/api/productos?gama=${selectedGama}`)
-        .then(response => response.json())
-        .then(data => setProductos(data));
-    }
-  }, [selectedGama]);
-
+const KapProductoList: React.FC<{ products: Product[] }> = ({ products }) => {
   return (
-    <div>
-      {selectedGama && (
-        <>
-          <h2 className="text-xl font-bold p-4">{selectedGama}</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-            {productos.map(producto => (
-              <div key={producto.id} className="border p-4 rounded shadow" onClick={() => setSelectedProducto(producto)}>
-                <img src={`/img/productos/${producto.imagen}`} alt={producto.nombre} className="h-32 w-full object-cover mb-2" />
-                <h3 className="text-lg font-semibold">{producto.nombre}</h3>
-                <p className="text-green-700">{producto.precio}€</p>
-                <p className="text-sm text-gray-600">{producto.stock} en Stock</p>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
+    <div className="grid grid-cols-3 gap-4">
+      {products.map(product => (
+        <div key={product.code} className="border p-4 rounded-lg shadow-md">
+          <Image
+            src={`http://localhost:3001/img/productos/${product.image}`}
+            alt={product.name}
+            width={500}
+            height={500}
+          />
+          <h2 className="text-xl font-semibold">{product.name}</h2>
+          <p>Código: {product.code}</p>
+          <p>Stock: {product.stock}</p>
+          <p>Precio: {product.price} €</p>
+          <p>Proveedor: {product.provider}</p>
+        </div>
+      ))}
     </div>
   );
 };
 
-export default ProductosList;
+export default KapProductoList;

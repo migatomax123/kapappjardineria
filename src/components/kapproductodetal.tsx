@@ -1,15 +1,24 @@
-const ProductoDetalle = ({ producto }) => {
-    return (
-      <div className="border p-4 rounded shadow">
-        <img src={`/img/productos/${producto.imagen}`} alt={producto.nombre} className="h-32 w-full object-cover mb-2" />
-        <h3 className="text-lg font-semibold">{producto.nombre}</h3>
-        <p>{producto.descripcion}</p>
-        <p className="text-green-700">Proveedor: {producto.proveedor}</p>
-        <p className="text-green-700">Precio: {producto.precio}€</p>
-        <p className="text-green-700">Stock: {producto.stock}</p>
-      </div>
-    );
+import React from 'react';
+import Image from 'next/image';
+
+const KapProductoDetal: React.FC = () => {
+  // Supongamos que tienes un producto con una propiedad de imagen
+  const product = {
+    image: '/path/to/image.jpg',
+    // otras propiedades...
   };
-  
-  export default ProductoDetalle;
-  
+
+  return (
+    <div>
+      <Image
+        src={product.image}
+        alt="Descripción de la imagen"
+        width={500}
+        height={500}
+      />
+      {/* otros elementos... */}
+    </div>
+  );
+};
+
+export default KapProductoDetal;

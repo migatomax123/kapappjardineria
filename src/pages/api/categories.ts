@@ -2,9 +2,9 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const response = await fetch('http://localhost:3000/api/productos');
+    const response = await fetch('http://localhost:3000/api/categories');
     if (!response.ok) {
-      throw new Error('Failed to fetch products');
+      throw new Error('Failed to fetch categories');
     }
     const data = await response.json();
     res.status(200).json(data);
@@ -13,3 +13,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(500).json({ message: errorMessage });
   }
 }
+
+

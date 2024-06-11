@@ -1,7 +1,19 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-const NuevoProducto = () => {
-  const [formData, setFormData] = useState({
+interface FormData {
+  codigo: string;
+  nombre: string;
+  descripcion: string;
+  proveedor: string;
+  stock: string;
+  poste: string;
+  imagen: string;
+  pvp: string;
+  codgama: string;
+}
+
+const NuevoProducto: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
     codigo: '',
     nombre: '',
     descripcion: '',
@@ -13,12 +25,12 @@ const NuevoProducto = () => {
     codgama: ''
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     fetch('http://localhost:3000/api/productos', {
       method: 'POST',
